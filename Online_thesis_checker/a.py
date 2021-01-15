@@ -43,7 +43,7 @@ def şekil_sayısı(dosya):
     dizi = []
     output = "\n"
     if "ŞEKİLLER LİSTESİ" not in dosya:
-        output+="Tezinizde 'ŞEKİLLER LİSTESİ'"
+        output+="Tezinizde 'ŞEKİLLER LİSTESİ' bulunmuyor."
         return output + "\n"
     elif "TABLOLAR LİSTESİ" not in dosya:
         output+="Tezinizde 'TABLOLAR LİSTESİ' bulunmuyor."
@@ -98,16 +98,45 @@ def kaynak_istatistik(dosya):
     else:
         return "kaynakların ", len(matching), "tanesi internet sitesidir."
 
+def blok_atıf(dosya):
+    output = '\n'
+    dizi = []
+    char = []
+    blok = list()
+    s = "s"
+    for i in dosya:
+        dizi.append(i)
+    for i in dizi:
+        char.extend(i)
+
+    for i in range(len(char)):
+        if char[i] == "-":
+            try:
+                if char[i + 1] == "]":
+                    blok.append(1)
+                elif char[i + 2] == "]":
+                    blok.append(1)
+                elif char[i + 3] == "]":
+                    blok.append(1)
+                elif char[i + 4] == "]":
+                    blok.append(1)
+                else:
+                    continue
+            except IndexError:
+                continue
 
 
-
-
-
+    if len(blok)==0:
+        output+="Tezinizde blok atıf verme bulunamadı\n"
+        return output
+    else:
+        output+="Tezinizde blok atıf verme var ! \n"
+        return output
 
 def to_txt(document, TFN):  # Geçiçi Dosya ismi
     with io.open(TFN, "w+", encoding="utf-8") as of:  # stands for an OutputFile
 
-        # reads all the outputs of funcs and primarily writes it into temp.txt
+        # fonksiyonlarda outputları okuyup sırayla temp.txt dosyasına yazıyoruz.
         of.write(str(içerik_hesapla(document)))
         of.write(str(önsözde_tşk_varmı(document)))
         of.write(str(giriş_son_bölüm(document)))
@@ -115,6 +144,7 @@ def to_txt(document, TFN):  # Geçiçi Dosya ismi
         of.write(str(tablo_sayısı(document)))
         of.write(str(kaynak_sayısı(document)))
         of.write(str(kaynak_istatistik(document)))
+        of.write(str(blok_atıf(document)))
 
 
 def process(filename):
