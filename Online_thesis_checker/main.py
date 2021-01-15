@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'cairocoders-ednalan'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024
 
-ALLOWED_EXTENSIONS = set(['docx'])
+ALLOWED_EXTENSIONS = set(['docx']) # izin verilen dosya türleri 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
