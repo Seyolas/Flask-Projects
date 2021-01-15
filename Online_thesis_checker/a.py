@@ -1,20 +1,23 @@
 import io
 import docx
+#önce sayfanın en altındaki process metodunu inceleyiniz.
 
 def içerik_hesapla(dosya):
     output = '''\nTezin İçeriği Ve Konusu:
 \n'''
     output += dosya[0] + "\n" + dosya[1] + "\n" + dosya[2] + "\n" + dosya[3] + "\n" + dosya[4] + "\n" + dosya[5]+"\n"+"\n"
     return output
+
+
 def önsözde_tşk_varmı(dosya):
     output = '\n'
-    if "ÖN SÖZ" in dosya:
-        for i in range(dosya.index("ÖN SÖZ"), dosya.index("ÖN SÖZ") + 1):
+    if "ÖN SÖZ" in dosya:#Bazı insanlar önsöz kelimesini ayrı yazdığı için bunun olup olmadığını kontrol ediyoruz.
+        for i in range(dosya.index("ÖN SÖZ"), dosya.index("ÖN SÖZ") + 1): # Önsöz'ün ilk paragrafında teşekkür olup olmadığına bakıyoruz.
             if "teşekkür" or "teşekkürü" or "teşekkürlerimi" in dosya[1]:
                 output += "Önsöz yazısının ilk paragrafında teşekkür bulunuyor! \n"
             else:
                 output += "önsözde hata bulunamadı.('İlk paragrafta teşekkür bulunmuyor.') \n"
-    elif ("TEŞEKKÜR") in dosya:
+    elif ("TEŞEKKÜR") in dosya: #Bazı insanlarda önsöz yerine başlık olarak teşekkür yazmış bunun için uyarı veriyoruz.
         for i in range(dosya.index("TEŞEKKÜR"), dosya.index("TEŞEKKÜR") + 1):
             output += "Tezinizde ayrı bir 'TEŞEKKÜR' alanı bulunmamalıdır! 'ÖNSÖZ' içinde yer vermeniz gerekir. \n"
     elif ("ÖNSÖZ / TEŞEKKÜR") in dosya:
@@ -32,13 +35,17 @@ def önsözde_tşk_varmı(dosya):
                 output += "önsözde hata bulunamadı.('İlk paragrafta teşekkür bulunmuyor.')"
 
     return output+"\n"
-def giriş_son_bölüm(dosya):
+
+
+def giriş_son_bölüm(dosya): #Gözlemlerime göre giriş kısmını yazmayanlar direkt bu kategoride. 
     output = '\n'
     if "GİRİŞ" in dosya:
         output += "Giriş bölümünün son paragrafında tezin organizasyonu ve kapsamına yer verilmiştir. \n"
     else:
         output += "Giriş içeriğinde tezin organizasyonu ve kapsamı hakkında yeterli bilgi bulunmamaktadır. \n"
     return output+"\n"
+
+
 def şekil_sayısı(dosya):
     dizi = []
     output = "\n"
@@ -56,6 +63,8 @@ def şekil_sayısı(dosya):
             output+="Lütfen gereken kurallara uyarak önce 'ŞEKİLLER LİSTESİ' ardından 'TABLOLAR LİSTESİ'ni yazınız."
             return output+"\n"
         return len(dizi)-2, "adet şekil bulunmaktadır."
+    
+    
 def tablo_sayısı(dosya):
     dizi = []
     output = "\n"
@@ -70,6 +79,8 @@ def tablo_sayısı(dosya):
             output += "Lütfen gereken kurallara uyarak 'ŞEKİLLER LİSTESİNDEN' önce 'TABLOLAR LİSTESİ' ardından 'EKLER LİSTESİ'ni yazınız."
             return output + "\n"
         return len(dizi) - 2, "adet tablo bulunmaktadır."
+    
+    
 def kaynak_sayısı(dosya):
     dizi = []
     output = "\n"
@@ -86,19 +97,25 @@ def kaynak_sayısı(dosya):
                   Zaten ÖZGEÇMİŞ bilgilerinizi yazdıysanız lütfen başlık kısmını ÖZGEÇMİŞ yapınız.(Aksi takdirde bu hatayı almaya devam edeceksiniz ve kaynak sayınızı hesaplayamayacağız.)\n'''
     else:
 
-        for i in range(dosya.index("KAYNAKLAR"), dosya.index("EKLER")):
-            dizi.append(i)
+        for i in range(dosya.index("KAYNAKLAR"), dosya.index("EKLER")): # kaynaklar ile ekler kısımları arasındaki her bir paragrafı bir diziye ekleyip dizinin 
+            dizi.append(i)                                              #uzunluğunu yani kaynak sayısını elde ediyoruz
         return len(dizi), "adet kaynak bulunmaktadır."
         return " "
     return output+"\n"
-def kaynak_istatistik(dosya):
+
+
+def kaynak_istatistik(dosya):# internet sitelerini herkes kopyala yapıştır yaptığı için başlarında her zaman 'https' kelimesi bulunuyor. Bunların sayını hesaplamak yeterli.
     matching = [s for s in dosya if "http" in s]
     if len(matching)==0:
         return "kaynaklarda hiç internet sitesi bulunmuyor."
     else:
         return "kaynakların ", len(matching), "tanesi internet sitesidir."
 
-def blok_atıf(dosya):
+    
+    
+def blok_atıf(dosya):'''Burada yapılan şey: Tez dosyasındaki her bir harfi,işareti,simgeyi bir diziye atıyoruz. Daha sonra bu dizide '[' elemanını buluyoruz. Bulduktan sonra
+                       Bu elemandan sonraki ilk 1,2,3 ve 4. eleman '-'simgesine eşit mi diye bakıyoruz. Eşitse herhangi bir yerde blok atıf yapıldığını tespit ediyoruz.
+                       Fakat bazı insanlar '—' işareti kullanmış bu normal '-' simgesinden biraz daha uzun ve python bu simgeyi tespit edemiyor! '''
     output = '\n'
     dizi = []
     char = []
@@ -134,7 +151,7 @@ def blok_atıf(dosya):
         return output
 
 def to_txt(document, TFN):  # Geçiçi Dosya ismi
-    with io.open(TFN, "w+", encoding="utf-8") as of:  # stands for an OutputFile
+    with io.open(TFN, "w+", encoding="utf-8") as of:  # OutputFile
 
         # fonksiyonlarda outputları okuyup sırayla temp.txt dosyasına yazıyoruz.
         of.write(str(içerik_hesapla(document)))
@@ -147,16 +164,16 @@ def to_txt(document, TFN):  # Geçiçi Dosya ismi
         of.write(str(blok_atıf(document)))
 
 
-def process(filename):
+def process(filename): # word dosyasını ön işlemden geçiriyoruz.
     doc = docx.Document(filename)
-    result = [p.text for p in doc.paragraphs]
-    result = list(filter(None, result))
+    result = [p.text for p in doc.paragraphs] #docx kütüphanesini kullanarak her bir paragrafı bir dizi elemanı olarak diziye atıyoruz.
+    result = list(filter(None, result)) # result değişkenindeki boş karakterleri siliyoruz.
 
     for i in result:
-        if len(i) == 2 and i.isnumeric() or len(i) == 1:
+        if len(i) == 2 and i.isnumeric() or len(i) == 1: #sayfa numaralarını ve tek(harf,rakam,simge,şekil) stringlerin birer eleman olarak anılmaması için siliyoruz.
             result.remove(i)
 
-    if "KAYNAKÇA" in result:
+    if "KAYNAKÇA" in result: #Kaynak sayısını hesaplayabilmemiz için başlangıç değerimiz 'KAYNAKLAR' stringi olacak. Bazı insanlar 'kaynakça' yazıyor bunu değiştiriyoruz.
         result = [i.replace("KAYNAKÇA", "KAYNAKLAR") for i in result]
 
     to_txt(result, filename + '.txt')
