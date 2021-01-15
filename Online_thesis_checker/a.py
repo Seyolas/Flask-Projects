@@ -114,7 +114,7 @@ def kaynak_istatistik(dosya):# internet sitelerini herkes kopyala yapıştır ya
     
     
 def blok_atıf(dosya):'''Burada yapılan şey: Tez dosyasındaki her bir harfi,işareti,simgeyi bir diziye atıyoruz. Daha sonra bu dizide ']' elemanını buluyoruz. Bulduktan sonra
-                       Bu elemandan sonraki ilk 1,2,3 ve 4. eleman '-'simgesine eşit mi diye bakıyoruz. Eşitse herhangi bir yerde blok atıf yapıldığını tespit ediyoruz.
+                       Bu elemandan önceki ilk 1,2,3 ve 4. eleman '-'simgesine eşit mi diye bakıyoruz. Eşitse herhangi bir yerde blok atıf yapıldığını tespit ediyoruz.
                        Fakat bazı insanlar '—' işareti kullanmış bu normal '-' simgesinden biraz daha uzun ve python bu simgeyi tespit edemiyor! '''
     output = '\n'
     dizi = []
