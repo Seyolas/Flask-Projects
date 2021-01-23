@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, flash, redirect, url_for, request,session,send_file
 from werkzeug.utils import secure_filename
 from docx import document
-import a as backend
+import algoritmalar as backend
 
 app = Flask(__name__)
 
@@ -10,7 +10,8 @@ app.config['SECRET_KEY'] = 'cairocoders-ednalan'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024
 
-ALLOWED_EXTENSIONS = set(['docx'])
+ALLOWED_EXTENSIONS = set(['docx']) # izin verilen dosya türleri
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

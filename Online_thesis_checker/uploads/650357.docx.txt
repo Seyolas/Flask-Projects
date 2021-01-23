@@ -15,7 +15,7 @@ Tezinizde ayrı bir 'TEŞEKKÜR' alanı bulunmamalıdır! 'ÖNSÖZ' içinde yer 
 Giriş bölümünün son paragrafında tezin organizasyonu ve kapsamına yer verilmiştir. 
 
 
-Tezinizde 'ŞEKİLLER LİSTESİ'
+Tezinizde 'ŞEKİLLER LİSTESİ' bulunmuyor.
 
 Tezinizde 'EKLER LİSTESİ' bulunmuyor.
 

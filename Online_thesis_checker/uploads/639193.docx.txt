@@ -15,7 +15,7 @@ Tezinizde ayrı bir 'TEŞEKKÜR' alanı bulunmamalıdır! 'ÖNSÖZ' içinde yer 
 Giriş içeriğinde tezin organizasyonu ve kapsamı hakkında yeterli bilgi bulunmamaktadır. 
 
 
-Tezinizde 'ŞEKİLLER LİSTESİ'
+Tezinizde 'ŞEKİLLER LİSTESİ' bulunmuyor.
 
 Tezinizde 'EKLER LİSTESİ' bulunmuyor.
 
