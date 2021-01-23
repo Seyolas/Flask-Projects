@@ -1,3 +1,5 @@
+
+#Kodu okumaya ilk önce sayfanın altındaki process metodundan başlayın.
 import io
 import docx
 
@@ -6,6 +8,7 @@ def içerik_hesapla(dosya):
 \n'''
     output += dosya[0] + "\n" + dosya[1] + "\n" + dosya[2] + "\n" + dosya[3] + "\n" + dosya[4] + "\n" + dosya[5]+"\n"+"\n"
     return output
+
 def önsözde_tşk_varmı(dosya):
     output = '\n'
     if "ÖN SÖZ" in dosya:#Bazı insanlar önsöz kelimesini ayrı yazdığı için bunun olup olmadığını kontrol ediyoruz.
@@ -32,6 +35,8 @@ def önsözde_tşk_varmı(dosya):
                 output += "önsözde hata bulunamadı.('İlk paragrafta teşekkür bulunmuyor.')"
 
     return output+"\n"
+
+
 def giriş_son_bölüm(dosya):#Gözlemlerime göre giriş kısmını yazmayanlar direkt bu kategoride.
     output = '\n'
     if "GİRİŞ" in dosya:
@@ -39,6 +44,8 @@ def giriş_son_bölüm(dosya):#Gözlemlerime göre giriş kısmını yazmayanlar
     else:
         output += "Giriş içeriğinde tezin organizasyonu ve kapsamı hakkında yeterli bilgi bulunmamaktadır. \n"
     return output+"\n"
+
+
 def şekil_sayısı(dosya):
     dizi = []
     output = "\n"
@@ -56,6 +63,8 @@ def şekil_sayısı(dosya):
             output+="Lütfen gereken kurallara uyarak önce 'ŞEKİLLER LİSTESİ' ardından 'TABLOLAR LİSTESİ'ni yazınız."
             return output+"\n"
         return len(dizi)-2, "adet şekil bulunmaktadır."
+    
+    
 def tablo_sayısı(dosya):
     dizi = []
     output = "\n"
@@ -70,6 +79,8 @@ def tablo_sayısı(dosya):
             output += "Lütfen gereken kurallara uyarak 'ŞEKİLLER LİSTESİNDEN' önce 'TABLOLAR LİSTESİ' ardından 'EKLER LİSTESİ'ni yazınız."
             return output + "\n"
         return len(dizi) - 2, "adet tablo bulunmaktadır."
+    
+    
 def kaynak_sayısı(dosya):
     dizi = []
     output = "\n"
@@ -91,6 +102,8 @@ def kaynak_sayısı(dosya):
         return len(dizi), "adet kaynak bulunmaktadır."
         return " "
     return output+"\n"
+
+
 def kaynak_istatistik(dosya):# internet sitelerini herkes kopyala yapıştır yaptığı için başlarında her zaman 'https' kelimesi bulunuyor. Bunların sayını hesaplamak yeterli.
     matching = [s for s in dosya if "http" in s]
     if len(matching)==0:
@@ -98,6 +111,7 @@ def kaynak_istatistik(dosya):# internet sitelerini herkes kopyala yapıştır ya
     else:
         return "kaynakların ", len(matching), "tanesi internet sitesidir."
 
+    
 def blok_atıf(dosya):
     output = '\n'
     dizi = []
